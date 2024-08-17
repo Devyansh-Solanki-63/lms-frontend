@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import HomeLayout from '../Layouts/HomeLayout'
+import HomePageImg from '../Assets/Images/homePageMainImage.png'
 
 const HomePage = () => {
   return (
@@ -33,7 +34,7 @@ const HomePage = () => {
             </div>
 
             <div className='w-1/2 flex items-center justify-center'>
-                {/* <img src={} alt="homepage image" /> */}
+                <img src={HomePageImg} alt="homepage image" />
             </div>
         </div>
     </HomeLayout>
