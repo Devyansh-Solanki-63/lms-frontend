@@ -1,12 +1,22 @@
 import React from 'react'
 import { FiMenu } from 'react-icons/fi'
 import { AiFillCloseCircle } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import Footer from '../components/Footer'
+import { useDispatch, useSelector } from 'react-redux'
 
 
 const HomeLayout = ({children}) => {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    // for checking is user is logged in or not
+    const isLoggedIn = useSelector(state => state?.auth?.isLoggedIn);
+
+    // for displaying content according to the roles
+    const role = useSelector(state => state?.auth?.role);
 
     const changeWidth = () => {
         const drawerSide = document.querySelector('.drawer-side')
@@ -19,6 +29,15 @@ const HomeLayout = ({children}) => {
 
         const drawerSide = document.querySelector('.drawer-side')
         drawerSide.style.width = '0px'
+    }
+
+    const handleLogout = async (e) => {
+        e.preventDefault();
+
+        // const res = await dispatch(logout());
+        // if(res?.payload?.success){
+        //     navigate('/')
+        // }
     }
 
   return (
@@ -45,9 +64,32 @@ const HomeLayout = ({children}) => {
                             </button>
                         </li>
                         <li><Link to="/">Home</Link></li>
+                        {isLoggedIn && role === "ADMIN" && (
+                            <li><Link to="/admin/dashboard">Admin Dashboard</Link></li>
+                        )}
                         <li><Link to="/courses">All courses</Link></li>
                         <li><Link to="/contact">Contact Us</Link></li>
                         <li><Link to="/about">About Us</Link></li>
+                        {!isLoggedIn && (
+                            <div className='w-full flex justify-center items-center py-2'>
+                                <button className='bg-primary text-white px-4 py-1 font-semibold rounded-s-md w-full'>
+                                    <Link to="/login">Login</Link>
+                                </button>
+                                <button className='bg-secondary text-white px-4 py-1 font-semibold rounded-e-md w-full'>
+                                    <Link to="/signup">Signup</Link>
+                                </button>
+                            </div>
+                        )}
+                        {isLoggedIn && (
+                            <div className='w-full flex justify-center items-center py-2'>
+                                <button className='bg-primary text-white px-4 py-1 font-semibold rounded-s-md w-full'>
+                                    <Link to="/user/profile">Profile</Link>
+                                </button>
+                                <button className='bg-secondary text-white px-4 py-1 font-semibold rounded-e-md w-full'>
+                                    <Link onClick={handleLogout}>Logout</Link>
+                                </button>
+                            </div>
+                        )}
                     </ul>
                 </div>
             </div>
