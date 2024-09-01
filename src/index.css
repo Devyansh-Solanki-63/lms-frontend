@@ -8,3 +8,8 @@ body{
     margin: auto;
     position: relative;
 }
+
+html:has(.drawer-toggle:checked) {
+    overflow-y: hidden;
+    scrollbar-gutter: auto;
+}

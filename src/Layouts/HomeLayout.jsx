@@ -57,7 +57,7 @@ const HomeLayout = ({children}) => {
                 <div className="drawer-side w-0">
                     <label htmlFor="my-drawer" className='drawer-overlay'>
                     </label>
-                    <ul className="menu p-4 w-48 sm:w-80 bg-base-200 text-base-content relative">
+                    <ul className="menu p-4 w-80 h-[100%] sm:w-80 bg-base-200 text-base-content relative">
                         <li className='w-fit absolute right-2 z-50'>
                             <button onClick={hideDrawer}>
                                 <AiFillCloseCircle size={24} />
@@ -71,7 +71,7 @@ const HomeLayout = ({children}) => {
                         <li><Link to="/contact">Contact Us</Link></li>
                         <li><Link to="/about">About Us</Link></li>
                         {!isLoggedIn && (
-                            <div className='w-full flex justify-center items-center py-2'>
+                            <div className='w-[90%] absolute bottom-4 flex justify-center items-center py-2'>
                                 <button className='bg-primary text-white px-4 py-1 font-semibold rounded-s-md w-full'>
                                     <Link to="/login">Login</Link>
                                 </button>
@@ -81,7 +81,7 @@ const HomeLayout = ({children}) => {
                             </div>
                         )}
                         {isLoggedIn && (
-                            <div className='w-full flex justify-center items-center py-2'>
+                            <div className='w-[90%] absolute bottom-4 flex justify-center items-center py-2'>
                                 <button className='bg-primary text-white px-4 py-1 font-semibold rounded-s-md w-full'>
                                     <Link to="/user/profile">Profile</Link>
                                 </button>
