@@ -72,6 +72,7 @@ const SignUp = () => {
       return;
     }
 
+    // create formData is not mandetory here, you can create plain object also.
     const formData = new FormData();
     formData.append("name", signupData.fullName)
     formData.append("email", signupData.email)
@@ -80,7 +81,7 @@ const SignUp = () => {
 
     // dispatch create account action
     const response = await dispatch(createAccount(formData))
-    if(response?.payload?.success){
+    if(response?.payload?.success){   // createAsyncThunk's object
       navigate('/')
     }
 
