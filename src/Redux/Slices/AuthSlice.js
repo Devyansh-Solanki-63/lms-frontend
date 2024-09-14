@@ -41,20 +41,42 @@ export const loginUser = createAsyncThunk('/auth/login', async (data) => {
     }
 })
 
+export const logoutUser = createAsyncThunk('/auth/logout', async () => {
+    try{
+        const promise = axiosInstance.get('user/logout') // axios promise
+        toast.promise(promise, {
+            loading: "Wait! logout in progress",
+            success: (res) => res?.data?.message, // axios promise after resolved
+            error: "Failed to logout"
+        })
+        return (await promise).data;
+        // The actual API data/response exists in axios object's data property.
+        // here "await promise" is axios object and in .data API's response exists.
+    } catch (error) {
+        toast.error(error?.response?.data?.message)
+    }
+})
+
 const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(loginUser.fulfilled, (state, action) => {
-            console.log(action)
-            localStorage.setItem('data', JSON.stringify(action?.payload?.user))
-            localStorage.setItem('role', action?.payload?.user?.role)
-            localStorage.setItem('isLoggedIn', true)
-            state.data = action?.payload?.user
-            state.role = action?.payload?.user?.role
-            state.isLoggedIn = true
-        })
+        builder
+            .addCase(loginUser.fulfilled, (state, action) => {
+                localStorage.setItem('data', JSON.stringify(action?.payload?.user))
+                localStorage.setItem('role', action?.payload?.user?.role)
+                localStorage.setItem('isLoggedIn', true)
+                state.data = action?.payload?.user
+                state.role = action?.payload?.user?.role
+                state.isLoggedIn = true
+            })
+            .addCase(logoutUser.fulfilled, (state) => {
+                localStorage.clear()
+                state.data = {}
+                state.role = ""
+                state.isLoggedIn = false
+            })
     }
 })
 
