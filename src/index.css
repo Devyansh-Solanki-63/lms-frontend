@@ -13,3 +13,9 @@ html:has(.drawer-toggle:checked) {
     overflow-y: hidden;
     scrollbar-gutter: auto;
 }
+
+.profile-info span{
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+}
