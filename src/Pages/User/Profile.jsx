@@ -25,6 +25,10 @@ const Profile = () => {
                         {userData?.fullName}
                     </h3>
                     <div className="flex flex-col gap-3"> {/*  grid grid-cols-2 */}
+                        <div className="profile-info name flex gap-2">
+                            <b>Name:</b>
+                            <span>{userData?.name}</span>
+                        </div>
                         <div className="profile-info email flex gap-2">
                             <b>Email:</b>
                             <span>{userData?.email}</span>

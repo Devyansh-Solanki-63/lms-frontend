@@ -41,7 +41,6 @@ const Contact = () => {
                 error: "Failed to send the message"
             });
             const contactResponse = await response;
-            console.log(contactResponse)
             if(contactResponse?.data?.success) {
                 setUserInput({
                     name: "",
