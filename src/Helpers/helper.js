@@ -20,4 +20,4 @@ export const getFinalMediaQuery = (query) => {
       default:
         return finalQuery;
     }
-  };
+};
