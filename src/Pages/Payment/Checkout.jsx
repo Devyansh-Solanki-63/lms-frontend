@@ -12,7 +12,6 @@ const Checkout = () => {
     const navigate = useNavigate()
     const razorpayKey = useSelector(state => state.razorpay.key)
     const subscription_id = useSelector(state => state.razorpay.subscription_id)
-    const isPaymentVerified = useSelector(state => state.razorpay.isPaymentVerified)
     const userData = useSelector(state => state?.auth?.data)
     const paymentDetails = {
         razorpay_payment_id: "",
@@ -43,10 +42,9 @@ const Checkout = () => {
                 paymentDetails.razorpay_subscription_id = response.razorpay_subscription_id;
                 paymentDetails.razorpay_signature = response.razorpay_signature;
 
-                toast.success("Payment Successful")
-
-                const res = await dispatch(verifyUserPayment((paymentDetails)))
-                isPaymentVerified ? navigate('/checkout/success') : navigate('/checkout/fail')
+                const result = await dispatch(verifyUserPayment((paymentDetails)))
+                const isSuccess = result?.payload?.success
+                isSuccess ? navigate('/checkout/success') : navigate('/checkout/fail')
             }
         }
         const paymentObject = new window.Razorpay(options);
