@@ -1,42 +1,41 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { getUserData } from '../../Redux/Slices/AuthSlice';
 import successImg from '../../Assets/Images/successThumbsUp.webp';
 import HomeLayout from '../../Layouts/HomeLayout';
 import confetti from 'canvas-confetti';
 
 
 const CheckoutSuccess = () => {
-    const dispatch = useDispatch();
-
+    
+    // Simple burst animation
     useEffect(() => {
-        dispatch(getUserData());
-    })
 
-    useEffect(() => {
-        // Simple burst animation
+        // center burst
         confetti({
             particleCount: 150,
             spread: 70,
             origin: { y: 0.6 },
         });
 
-        // Optional: Repeated bursts for celebration feel
-        const interval = setInterval(() => {
+        // horizontally left burst
+        setTimeout(() => {
             confetti({
                 particleCount: 100,
                 spread: 60,
-                origin: {
-                    x: Math.random(),
-                    y: Math.random() - 0.2,
-                },
+                origin: { x: 0.2, y: 0.8 },
             });
         }, 800);
 
-        // Cleanup
-        setTimeout(() => clearInterval(interval), 4000); // run for 4s
+        // horizontally right burst
+        setTimeout(() => {
+            confetti({
+                particleCount: 100,
+                spread: 60,
+                origin: { x: 0.8, y: 0.8 },
+            });
+        }, 1600);
+
     }, []);
 
     return (
@@ -50,7 +49,7 @@ const CheckoutSuccess = () => {
                             <h2 className="text-lg font-semibold">
                                 Welcome to the pro bundle
                             </h2>
-                            <p className="text-left">
+                            <p>
                                 Now you can enjoy all the courses.
                             </p>
 

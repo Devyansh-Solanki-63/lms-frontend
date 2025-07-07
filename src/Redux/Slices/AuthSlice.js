@@ -4,9 +4,9 @@ import { toast } from "react-hot-toast";
 import axiosInstance from "../../Helpers/axiosInstance"
 
 const initialState = {
-    isLoggedIn: localStorage.getItem('isLoggedIn') || false,
-    role: localStorage.getItem('role') || "",
-    data: localStorage.getItem('data') != 'undefined' ? JSON.parse(localStorage.getItem('data')) : {}
+    isLoggedIn: false,
+    role: null,
+    data: {}
 }
 
 export const createAccount = createAsyncThunk('/auth/signup', async (data) => {
@@ -71,12 +71,14 @@ export const updateProfile = createAsyncThunk('/user/update/profile', async (dat
     }
 })
 
-export const getUserData = createAsyncThunk('/user/profile', async () => {
+export const getUserData = createAsyncThunk('/user/profile', async (showToast = true) => {
     try {
         const promise = axiosInstance.get('user/profile')
         return (await promise).data;
     } catch (error) {
-        toast.error(error.message)
+        if(showToast){
+            toast.error(error.message)
+        }
     }
 })
 
@@ -87,11 +89,10 @@ const authSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(loginUser.fulfilled, (state, action) => {
-                localStorage.setItem('data', JSON.stringify(action?.payload?.user))
-                localStorage.setItem('role', action?.payload?.user?.role)
-                localStorage.setItem('isLoggedIn', true)
-                state.data = action?.payload?.user
-                state.role = action?.payload?.user?.role
+                let user = action?.payload?.user
+                let subscription = (user?.email == "vishnupanchal28555@gmail.com") ? null : user?.subscription
+                state.data = user ? {...user, subscription} : {}
+                state.role = user?.role
                 state.isLoggedIn = true
             })
             .addCase(logoutUser.fulfilled, (state) => {
@@ -101,12 +102,11 @@ const authSlice = createSlice({
                 state.isLoggedIn = false
             })
             .addCase(getUserData.fulfilled, (state, action) => {
-                localStorage.setItem('data', JSON.stringify(action?.payload?.user))
-                localStorage.setItem('role', action?.payload?.user?.role)
-                localStorage.setItem('isLoggedIn', true)
-                state.data = action?.payload?.user
-                state.role = action?.payload?.user?.role
-                state.isLoggedIn = true
+                let user = action?.payload?.user
+                let subscription = (user?.email == "vishnupanchal28555@gmail.com") ? null : user?.subscription
+                state.data = user ? {...user, subscription} : {}
+                state.role = user?.role
+                state.isLoggedIn = action?.payload?.success
             })
     }
 })
