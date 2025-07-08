@@ -6,6 +6,7 @@ import { BiRupee } from "react-icons/bi";
 
 import HomeLayout from '../../Layouts/HomeLayout'
 import { getRazorpayId, purchaseCourseBundle, verifyUserPayment } from '../../Redux/Slices/RazorpaySlice'
+import { getUserData } from '../../Redux/Slices/AuthSlice';
 
 const Checkout = () => {
     const dispatch = useDispatch()
@@ -44,7 +45,12 @@ const Checkout = () => {
 
                 const result = await dispatch(verifyUserPayment((paymentDetails)))
                 const isSuccess = result?.payload?.success
-                isSuccess ? navigate('/checkout/success') : navigate('/checkout/fail')
+                if(isSuccess){
+                    dispatch(getUserData())
+                    navigate('/checkout/success')
+                } else {
+                    navigate('/checkout/fail')
+                }
             }
         }
         const paymentObject = new window.Razorpay(options);
