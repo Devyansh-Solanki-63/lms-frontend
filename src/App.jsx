@@ -30,9 +30,7 @@ function App() {
   useEffect(() => {
     const loadUserData = async () => {
       const result = await dispatch(getUserData(false))
-      if(result?.payload?.success == true  ||  result?.payload?.success == false){
-        setIsAppLoading(false)
-      }
+      setIsAppLoading(false)
     }
 
     loadUserData()
