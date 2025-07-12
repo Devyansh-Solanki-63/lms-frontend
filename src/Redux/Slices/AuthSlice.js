@@ -37,7 +37,7 @@ export const loginUser = createAsyncThunk('/auth/login', async (data) => {
         // The actual API data/response exists in axios object's data property.
         // here "await promise" is axios object and in .data API's response exists.
     } catch (error) {
-        toast.error(error?.response?.data?.message)
+        toast.error(error?.response?.data?.message || "Server Error..!")
     }
 })
 

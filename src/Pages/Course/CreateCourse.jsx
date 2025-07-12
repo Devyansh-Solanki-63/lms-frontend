@@ -90,7 +90,7 @@ const CreateCourse = () => {
                 <input className="hidden"
                   type="file"
                   id="image_uploads"
-                  accept=".jpg, .jpeg, .png"
+                  accept=".jpg, .jpeg, .png, .webp"
                   name="image_uploads"
                   onChange={handleImageUpload}
                 />

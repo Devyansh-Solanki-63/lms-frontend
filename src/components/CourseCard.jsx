@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import defaultCourseImage from "../Assets/Images/course_dummy.png"
 
 const CourseCard = ({data}) => {
 
@@ -12,7 +13,7 @@ const CourseCard = ({data}) => {
             <div className="overflow-hidden">
                 <img 
                     className="h-48 w-full rounded-tl-lg rounded-tr-lg group-hover:scale=[1,2] transition-all ease-in-out duration-300"
-                    src={data?.thumbnail?.secure_url}
+                    src={data?.thumbnail?.secure_url || defaultCourseImage}
                     alt="course thumbnail"
                 />
                 <div className="p-3 space-y-1 text-white">
@@ -26,14 +27,18 @@ const CourseCard = ({data}) => {
                         <span className="text-yellow-500 font-bold">Category : </span>
                         {data?.category}
                     </p>
-                    <p className="font-semibold">
-                        <span className="text-yellow-500 font-bold">Total lectures : </span>
-                        {data?.numberoflectures}
-                    </p>
-                    <p className="font-semibold">
-                        <span className="text-yellow-500 font-bold">Instructor : </span>
-                        {data?.createdBy}
-                    </p>
+                    {(data?.numberOfLectures != null || data?.numberOfLectures != undefined) &&
+                        <p className="font-semibold">
+                            <span className="text-yellow-500 font-bold">Total lectures : </span>
+                            {data?.numberOfLectures}
+                        </p>
+                    }
+                    {(data?.createdBy != null || data?.createdBy != undefined) &&
+                        <p className="font-semibold">
+                            <span className="text-yellow-500 font-bold">Instructor : </span>
+                            {data?.createdBy}
+                        </p>
+                    }
                 </div>
             </div>
         </div>
