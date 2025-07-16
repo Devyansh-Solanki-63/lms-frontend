@@ -20,7 +20,6 @@ const DisplayLectures = () => {
     }
 
     useEffect(() => {
-        console.log("state: ", state);
         if (!state) navigate("/courses");
         dispatch(getCourseLectures(state._id));
     }, []);
@@ -64,7 +63,7 @@ const DisplayLectures = () => {
                             <li className="font-semibold text-xl text-yellow-500 flex items-center justify-between">
                                 <p>Lectures list</p>
                                 {role === "ADMIN" && (
-                                    <button onClick={() => navigate("/course/addlecture", { state: { ...state } })} className="btn-primary px-2 py-1 rounded-md font-semibold text-sm">
+                                    <button onClick={() => navigate("/course/addlecture", { state: { ...state } })} className="bg-yellow-600 text-black px-4 py-1 rounded-md font-semibold text-sm">
                                         Add new lecture
                                     </button>
                                 )}
@@ -80,7 +79,7 @@ const DisplayLectures = () => {
                                                 {lecture?.title}
                                             </p>
                                             {role === "ADMIN" && (
-                                                <button onClick={() => onLectureDelete(state?._id, (idx + 1))} className="btn-accent px-2 py-1 rounded-md font-semibold text-sm">
+                                                <button onClick={() => onLectureDelete(state?._id, (idx + 1))} className="bg-red-700 text-gray-300 px-4 py-1 rounded-md font-semibold text-sm">
                                                     Delete lecture
                                                 </button>
                                             )}
@@ -92,8 +91,10 @@ const DisplayLectures = () => {
                     </div>
                 ) : (
                     role === "ADMIN" && (
-                        <button onClick={() => navigate("/course/addlecture", { state: { ...state } })} className="btn-primary px-2 py-1 rounded-md font-semibold text-sm">
-                            Add new lecture
+                        <button className="bg-yellow-600 text-black px-4 py-3 rounded-md font-semibold text-sm"
+                            onClick={() => navigate("/course/addlecture", { state: { ...state } })}
+                        >
+                            Add New Lecture
                         </button>
                     )
                 )}
