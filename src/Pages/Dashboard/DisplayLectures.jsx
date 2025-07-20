@@ -25,7 +25,7 @@ const DisplayLectures = () => {
 
     return (
         <HomeLayout>
-            <div className="flex flex-col gap-10 items-center justify-center min-h-[90vh] py-10 text-wihte mx-[5%]">
+            <div className="flex flex-col gap-10 items-center justify-center h-full py-10 text-wihte mx-[5%]">
                 <div className="text-center text-2xl font-semibold text-yellow-500">
                     Course Name: {state?.title}
                 </div>

@@ -7,7 +7,7 @@ import HomePageImg from '../Assets/Images/homePageMainImage.png'
 const HomePage = () => {
   return (
     <HomeLayout>
-        <div className='flex items-center justify-center gap-10 text-white h-[90vh] pt-10 mx-16'>
+        <div className='h-full flex items-center justify-center gap-10 text-white pt-10 mx-16'>
             <div className='w-1/2 space-y-6'>
                 <h1 className='text-5xl font-semibold'>
                     Find out best

@@ -43,7 +43,7 @@ const HomeLayout = ({children}) => {
 
   return (
     <>
-        <div className='min-h-[90vh]'>
+        <div>
             <div className="drawer absolute left-0 z-50 w-fit">
                 <input type="checkbox" className="drawer-toggle" id='my-drawer' />
                 <div className="drawer-content">
@@ -95,7 +95,9 @@ const HomeLayout = ({children}) => {
                 </div>
             </div>
 
-            {children}
+            <div className='min-h-[82vh] sm:min-h-[90vh]'>
+                {children}
+            </div>
 
             <Footer />
         </div>
