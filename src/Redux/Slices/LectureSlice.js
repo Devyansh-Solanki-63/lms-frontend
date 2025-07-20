@@ -55,6 +55,27 @@ export const deleteCourseLecture = createAsyncThunk("/course/lecture/delete", as
     }
 });
 
+export const editCourseLecture = createAsyncThunk("/course/lecture/edit", async (data) => {
+    try {
+        const formData = new FormData();
+        if(data.lecture){
+            formData.append("lecture", data.lecture);
+        }
+        formData.append("title", data.title);
+        formData.append("description", data.description);
+        
+        const response = axiosInstance.put(`/courses/lectures/${data.id}/${data.activeLectureNumber}`, formData);
+        toast.promise(response, {
+            loading: "updating course lecture",
+            success: "Lecture updated successfully",
+            error: "Failed to update the lectures"
+        });
+        return (await response).data;
+    } catch(error) {
+        toast.error(error?.response?.data?.message);
+    }
+});
+
 
 const lectureSlice = createSlice({
     name: "lecture",
@@ -66,7 +87,13 @@ const lectureSlice = createSlice({
                 state.lectures = action?.payload?.lectures;
             })
             .addCase(addCourseLecture.fulfilled, (state, action) => {
-                state.lectures = action?.payload?.course?.lectures;
+                state.lectures = action?.payload?.result?.lectures;
+            })
+            .addCase(deleteCourseLecture.fulfilled, (state, action) => {
+                state.lectures = action?.payload?.result?.lectures;
+            })
+            .addCase(editCourseLecture.fulfilled, (state, action) => {
+                state.lectures = action?.payload?.result?.lectures;
             })
     }
 });

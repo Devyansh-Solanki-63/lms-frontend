@@ -16,7 +16,6 @@ const DisplayLectures = () => {
 
     async function onLectureDelete(courseId, lectureNumber) {
         await dispatch(deleteCourseLecture({ courseId: courseId, lectureNumber }));
-        await dispatch(getCourseLectures(courseId));
     }
 
     useEffect(() => {
@@ -59,7 +58,7 @@ const DisplayLectures = () => {
                         </div>
 
                         {/* right section for displaying list of lectres */}
-                        <ul className="w-[28rem] p-2 rounded-lg shadow-[0_0_10px_black] space-y-4">
+                        <ul className="w-[28rem] p-2 rounded-lg shadow-[0_0_10px_black] flex flex-col gap-[15px]">
                             <li className="font-semibold text-xl text-yellow-500 flex items-center justify-between">
                                 <p>Lectures list</p>
                                 {role === "ADMIN" && (
@@ -71,17 +70,23 @@ const DisplayLectures = () => {
                             {lectures &&
                                 lectures.map((lecture, idx) => {
                                     return (
-                                        <li className="space-y-2" key={lecture._id} >
-                                            <p className="cursor-pointer" onClick={() => setCurrentVideo(idx)}>
-                                                <span>
-                                                    {" "} Lecture {idx + 1} : {" "}
-                                                </span>
-                                                {lecture?.title}
-                                            </p>
+                                        <li key={lecture._id}>
+                                            <div className='lecture-list flex gap-[10px] justify-start items-start cursor-pointer' onClick={() => setCurrentVideo(idx)}>
+                                                <img className='lecture-thumbnail' src={lecture?.thumbnail?.secure_url} alt="" />
+                                                <p>
+                                                    <span>Lecture {idx + 1} : {" "}</span>
+                                                    {lecture?.title}
+                                                </p>
+                                            </div>
                                             {role === "ADMIN" && (
-                                                <button onClick={() => onLectureDelete(state?._id, (idx + 1))} className="bg-red-700 text-gray-300 px-4 py-1 rounded-md font-semibold text-sm">
-                                                    Delete lecture
-                                                </button>
+                                                <div className='flex gap-[5px]'>
+                                                    <button onClick={() => navigate("/course/editlecture", { state: { ...state, lectures, activeLectureNumber: idx+1 } })} className="bg-green-700 text-gray-300 px-4 py-1 rounded-md font-semibold text-sm">
+                                                        Edit
+                                                    </button>
+                                                    <button onClick={() => onLectureDelete(state?._id, (idx + 1))} className="bg-red-700 text-gray-300 px-4 py-1 rounded-md font-semibold text-sm">
+                                                        Delete
+                                                    </button>
+                                                </div>
                                             )}
                                         </li>
                                     )

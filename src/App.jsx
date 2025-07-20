@@ -23,6 +23,7 @@ import CheckoutFail from './Pages/Payment/CheckoutFail'
 import { getUserData } from './Redux/Slices/AuthSlice'
 import DisplayLectures from './Pages/Dashboard/DisplayLectures'
 import AddLecture from './Pages/Dashboard/AddLecture'
+import EditLecture from './Pages/Dashboard/EditLecture'
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
           <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
             <Route path="/course/create" element={<CreateCourse />}></Route>
             <Route path="/course/addlecture" element={<AddLecture />} />
+            <Route path="/course/editlecture" element={<EditLecture />} />
           </Route>
 
           <Route element={<RequireAuth allowedRoles={["ADMIN", "USER"]} />}>

@@ -1,0 +1,15 @@
+#root .lecture-list{
+    transition: all 0.2s ease-in-out;
+    padding: 10px;
+    border-radius: 3px;
+}
+#root .lecture-list:hover{
+    background-color: rgb(255, 255, 255, 0.1);
+}
+
+#root .lecture-thumbnail{
+    width: 100%;
+    height: auto;
+    max-width: 70px;
+    border-radius: 5px;
+}
