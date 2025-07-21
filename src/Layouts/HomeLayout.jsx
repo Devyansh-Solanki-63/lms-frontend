@@ -95,7 +95,7 @@ const HomeLayout = ({children}) => {
                 </div>
             </div>
 
-            <div className='min-h-[82vh] sm:min-h-[90vh]'>
+            <div className='min-h-[82vh] sm:min-h-[90vh] flex flex-col'>
                 {children}
             </div>
 

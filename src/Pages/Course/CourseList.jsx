@@ -20,7 +20,7 @@ const CourseList = () => {
 
     return (
         <HomeLayout>
-            <div className="h-full pt-20 sm:pt-12 mx-3 sm:mx-16 flex flex-col gap-10 text-white">
+            <div className="flex-1 pt-20 sm:pt-12 mx-3 sm:mx-16 flex flex-col gap-10 text-white">
                 <h1 className="text-center text-3xl font-semibold mb-5">
                     Explore the courses made by
                     <span className="font-bold text-yellow-500">

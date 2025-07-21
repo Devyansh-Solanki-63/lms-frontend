@@ -12,7 +12,7 @@ function CourseDescription() {
 
     return (
         <HomeLayout>
-            <div className="h-full pt-12 px-20 flex flex-col items-center justify-center text-white">
+            <div className="flex-1 pt-12 px-20 flex flex-col items-center justify-center text-white">
                 <div className="grid grid-cols-2 gap-10 py-10 relative">
                     <div className="space-y-5">
                         <img 

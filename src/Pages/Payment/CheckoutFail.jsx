@@ -7,7 +7,7 @@ import HomeLayout from '../../Layouts/HomeLayout';
 const CheckoutFail = () => {
   return (
     <HomeLayout>
-      <div className="h-full flex items-center justify-center text-white">
+      <div className="flex-1 flex items-center justify-center text-white">
         <div className="w-80 h-[26rem] flex flex-col justify-center items-center shadow-[0_0_10px_black] rounded-lg relative">
           <h1 className="bg-[#d72828] absolute text-center top-0 w-full py-4 text-2xl font-bold rounded-tl-lg rounded-tr-lg">Payment Failed</h1>
 
