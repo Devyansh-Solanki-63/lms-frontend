@@ -24,6 +24,7 @@ import { getUserData } from './Redux/Slices/AuthSlice'
 import DisplayLectures from './Pages/Dashboard/DisplayLectures'
 import AddLecture from './Pages/Dashboard/AddLecture'
 import EditLecture from './Pages/Dashboard/EditLecture'
+import AdminDashboard from './Pages/Dashboard/AdminDashboard'
 
 
 function App() {
@@ -50,9 +51,13 @@ function App() {
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/denied" element={<Denied />} />
+          <Route path="/courses" element={<CourseList />}></Route>
+          <Route path="/course/description" element={<CourseDescription />}></Route>
+          <Route path="*" element={<NotFound />}></Route>
 
           <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
-            <Route path="/course/create" element={<CreateCourse />}></Route>
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/course/create" element={<CreateCourse />} />
             <Route path="/course/addlecture" element={<AddLecture />} />
             <Route path="/course/editlecture" element={<EditLecture />} />
           </Route>
@@ -65,11 +70,6 @@ function App() {
             <Route path="/checkout/fail" element={<CheckoutFail />}></Route>
             <Route path="/course/displaylectures" element={<DisplayLectures />}/>
           </Route>
-          
-          <Route path="/courses" element={<CourseList />}></Route>
-          <Route path="/course/description" element={<CourseDescription />}></Route>
-
-          <Route path="*" element={<NotFound />}></Route>
         </Routes>
       ) : (
         <>loading...</>
