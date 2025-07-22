@@ -7,8 +7,8 @@ const initialState = {
     subscription_id: "",
     isPaymentVerified: false,
     allPayments: {},
-    finalMonths: {},
-    monthlySalesRecord: []
+    monthlySalesRecord: [],
+    subscriptionCount: 0
 }
 
 export const getRazorpayId = createAsyncThunk('/razorpay/getId', async () => {
@@ -97,8 +97,8 @@ const razorpaySlice = createSlice({
         })
         .addCase(getPaymentRecord.fulfilled, (state, action) => {
             state.allPayments = action?.payload?.allPayments;
-            state.finalMonths = action?.payload?.finalMonths;
             state.monthlySalesRecord = action?.payload?.monthlySalesRecord;
+            state.subscriptionCount = action?.payload?.subscriptionCount;
         })
     }
 })
