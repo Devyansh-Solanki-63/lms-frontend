@@ -1,3 +1,8 @@
+#root .parent-skeleton{
+    display: inline-block;
+    width: 100%;
+}
+
 #root .lecture-list{
     transition: all 0.2s ease-in-out;
     padding: 10px;
