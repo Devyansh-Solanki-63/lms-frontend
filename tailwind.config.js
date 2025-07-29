@@ -7,6 +7,9 @@ export default {
   theme: {
     extend: {},
   },
+  corePlugins: {
+    lineClamp: true,
+  },
   plugins: [require("daisyui")],
   daisyui: {
     themes: ["light", "dark", "cupcake", "synthwave", "night", "sunset"], // You can add more or use your custom themes

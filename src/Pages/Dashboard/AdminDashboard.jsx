@@ -1,8 +1,8 @@
-import { ArcElement, BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title,Tooltip } from "chart.js";
+import { ArcElement, BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from "chart.js";
 import { useEffect } from "react";
 import { Bar, Pie } from "react-chartjs-2";
 import { BsCollectionPlayFill, BsTrash } from "react-icons/bs";
-import {FaUsers} from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";
 import { FcSalesPerformance } from "react-icons/fc";
 import { GiMoneyStack } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +19,7 @@ function AdminDashboard() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    
+
     const { allUsersCount, subscribedCount } = useSelector((state) => state.stat);
 
     const { allPayments, monthlySalesRecord, subscriptionCount } = useSelector((state) => state.razorpay);
@@ -34,7 +34,7 @@ function AdminDashboard() {
                 data: [allUsersCount, subscribedCount],
                 backgroundColor: ["yellow", "green"],
                 borderWidth: 1,
-                borderColor: ["yellow","green"]
+                borderColor: ["yellow", "green"]
             },
         ]
     };
@@ -57,10 +57,10 @@ function AdminDashboard() {
     const myCourses = useSelector((state) => state?.course?.courseData);
 
     async function onCourseDelete(id) {
-        if(window.confirm("Are you sure you want to delete the course ? ")) {
+        if (window.confirm("Are you sure you want to delete the course ? ")) {
             const res = await dispatch(deleteCourse(id));
             console.log(res);
-            if(res?.payload?.success) {
+            if (res?.payload?.success) {
                 await dispatch(getAllCourses());
             }
         }
@@ -87,7 +87,7 @@ function AdminDashboard() {
                 <div className="grid grid-cols-2 gap-5 m-auto mx-10">
                     <div className="flex flex-col items-center gap-10 p-5 shadow-lg rounded-md">
                         <div className="w-80 h-80">
-                            <Pie data={userData}/>
+                            <Pie data={userData} />
                         </div>
 
                         <div className="grid grid-cols-2 gap-5">
@@ -96,14 +96,14 @@ function AdminDashboard() {
                                     <p className="font-semibold">Registered Users</p>
                                     <h3 className="text-4xl font-bold">{allUsersCount}</h3>
                                 </div>
-                                <FaUsers className="text-yellow-500 text-5xl"/>
+                                <FaUsers className="text-yellow-500 text-5xl" />
                             </div>
                             <div className="flex items-center justify-between p-5 gap-5 rounded-md shadow-md">
                                 <div className="flex flex-col items-center">
                                     <p className="font-semibold">Subscribed Users</p>
                                     <h3 className="text-4xl font-bold">{subscribedCount}</h3>
                                 </div>
-                                <FaUsers className="text-green-500 text-5xl"/>
+                                <FaUsers className="text-green-500 text-5xl" />
                             </div>
                         </div>
                     </div>
@@ -119,14 +119,14 @@ function AdminDashboard() {
                                     <p className="font-semibold">Subscription Count</p>
                                     <h3 className="text-4xl font-bold">{subscriptionCount}</h3>
                                 </div>
-                                <FcSalesPerformance className="text-yellow-500 text-5xl"/>
+                                <FcSalesPerformance className="text-yellow-500 text-5xl" />
                             </div>
                             <div className="flex items-center justify-between p-5 gap-5 rounded-md shadow-md">
                                 <div className="flex flex-col items-center">
                                     <p className="font-semibold">Total Revenue</p>
                                     <h3 className="text-4xl font-bold">{formatToINRCurrency(subscriptionCount * 499)}</h3>
                                 </div>
-                                <GiMoneyStack className="text-green-500 text-5xl"/>
+                                <GiMoneyStack className="text-green-500 text-5xl" />
                             </div>
                         </div>
                     </div>
@@ -148,26 +148,50 @@ function AdminDashboard() {
                         </button>
                     </div>
 
-                    <table className="table overflow-x-scroll">
-                            <thead>
-                                <tr>
-                                    <th>S No</th>
-                                    <th>Course Title</th>
-                                    <th>Course Category</th>
-                                    <th>Instructor</th>
-                                    <th>Total Lectures</th>
-                                    <th>Description</th>
-                                    <th>Actions</th>
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {myCourses?.map((course, idx) => {
-                                    return (
-                                        <tr key={course._id}>
-                                            <td>{idx+1}</td>
+                    <div className="tables-parent-container">
+                        <div className="table-container-index">
+                            <table className="table-index">
+                                <thead>
+                                    <tr>
+                                        <th>S No</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {myCourses?.map((course, idx) => (
+                                        <tr key={`index-${course._id}`} id={`tr-${idx}`}>
+                                            <td>{idx + 1}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div className="table-container-content">
+                            <table className="table-content w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Course Title</th>
+                                        <th>Course Category</th>
+                                        <th>Instructor</th>
+                                        <th>Total Lectures</th>
+                                        <th>Description</th>
+                                        <th>Created At</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {myCourses?.map((course, idx) => (
+                                        <tr key={`content-${course._id}`} id={`tr-${idx}`}>
                                             <td>
-                                                <textarea readOnly value={course?.title} className="w-40 h-auto bg-transparent resize-none"></textarea>
+                                                <div className="w-40 bg-transparent">
+                                                    <p style={{
+                                                        display: '-webkit-box',
+                                                        WebkitLineClamp: '2',
+                                                        WebkitBoxOrient: 'vertical',
+                                                        overflow: 'hidden'
+                                                    }}>{course?.title}</p>
+                                                </div>
                                             </td>
                                             <td>
                                                 {course?.category}
@@ -178,34 +202,41 @@ function AdminDashboard() {
                                             <td>
                                                 {course?.numberOfLectures}
                                             </td>
-                                            <td className="max-w-28 overflow-hidden text-ellipsis whitespace-nowrap">
-                                                <textarea
-                                                    value={course?.description}
-                                                    readOnly
-                                                    className="w-80 h-auto bg-transparent resize-none"
-                                                >
-
-                                                </textarea>
+                                            <td>
+                                                <div className="w-40 bg-transparent">
+                                                    <p style={{
+                                                        display: '-webkit-box',
+                                                        WebkitLineClamp: '2',
+                                                        WebkitBoxOrient: 'vertical',
+                                                        overflow: 'hidden'
+                                                    }}>{course?.description}</p>
+                                                </div>
                                             </td>
-                                            <td className="flex items-center gap-4">
-                                                <button
-                                                    className="bg-green-500 hover:bg-green-600 transition-all ease-in-out duration-300 text-xl py-2 px-4 rounded-md font-bold"
-                                                    onClick={() => navigate("/course/displaylectures", {state: {...course}})}
-                                                >
-                                                    <BsCollectionPlayFill />
-                                                </button>
-                                                <button
-                                                    className="bg-red-500 hover:bg-red-600 transition-all ease-in-out duration-300 text-xl py-2 px-4 rounded-md font-bold"
-                                                    onClick={() => onCourseDelete(course?._id)}
-                                                >
-                                                    <BsTrash />
-                                                </button>
+                                            <td>
+                                                {new Date(course?.createdAt).toLocaleDateString()}
+                                            </td>
+                                            <td>
+                                                <div className="flex items-center gap-4">
+                                                    <button
+                                                        className="bg-green-500 hover:bg-green-600 transition-all ease-in-out duration-300 text-xl py-2 px-4 rounded-md font-bold"
+                                                        onClick={() => navigate("/course/displaylectures", { state: { ...course } })}
+                                                    >
+                                                        <BsCollectionPlayFill />
+                                                    </button>
+                                                    <button
+                                                        className="bg-red-500 hover:bg-red-600 transition-all ease-in-out duration-300 text-xl py-2 px-4 rounded-md font-bold"
+                                                        onClick={() => onCourseDelete(course?._id)}
+                                                    >
+                                                        <BsTrash />
+                                                    </button>
+                                                </div>
                                             </td>
                                         </tr>
-                                    )
-                                })}
-                            </tbody>
-                    </table>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </HomeLayout>

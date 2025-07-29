@@ -2,6 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  
+  .tables-parent-container {
+    display: flex;
+    width: 100%;
+    position: relative;
+  }
+  
+  .table-container-content {
+    overflow-x: auto;
+    flex-grow: 1;
+  }
+  
+  .table-index th,
+  .table-index td,
+  .table-content th,
+  .table-content td {
+    padding: 0.75rem 1rem;
+    white-space: nowrap;
+  }
+  
+  .table-index tr:hover td,
+  .table-content tr:hover td {
+    background-color: #374151;
+  }
+}
+
 
 
 body{

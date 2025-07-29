@@ -6,7 +6,7 @@ const HomePageSkeleton = () => {
         <div className='flex flex-col min-h-[100vh]'>
             <div className='flex-1 flex flex-col-reverse md:flex-row items-center justify-center gap-10 text-white pt-10 pb-10 md:pb-0 mx-3 sm:mx-16'>
                 <div className='w-full md:w-1/2 space-y-6 text-center md:text-left'>
-                    <Skeleton height={48} width={"100%"} style={{marginBottom: 24}} />
+                    <Skeleton height={48} width={"80%"} style={{marginBottom: 24}} />
 
                     <Skeleton height={28} width={"100%"} style={{ marginBottom: 8 }} />
                     <Skeleton height={28} width={"100%"} style={{ marginBottom: 8 }} />
