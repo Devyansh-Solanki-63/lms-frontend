@@ -17,6 +17,7 @@ import Denied from './Pages/Denied'
 import CourseDescription from './Pages/Course/CourseDescription'
 import RequireAuth from './components/Auth/RequireAuth'
 import CreateCourse from './Pages/Course/CreateCourse'
+import EditCourse from './Pages/Course/EditCourse'
 import Profile from './Pages/User/Profile'
 import EditProfile from './Pages/User/EditProfile'
 import Checkout from './Pages/Payment/Checkout'
@@ -65,6 +66,7 @@ function App() {
             <Route element={<RequireAuth allowedRoles={["ADMIN"]} />}>
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="/course/create" element={<CreateCourse />} />
+              <Route path="/course/edit" element={<EditCourse />} />
               <Route path="/course/addlecture" element={<AddLecture />} />
               <Route path="/course/editlecture" element={<EditLecture />} />
             </Route>

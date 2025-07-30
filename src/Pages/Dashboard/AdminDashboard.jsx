@@ -1,7 +1,7 @@
 import { ArcElement, BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from "chart.js";
 import { useEffect } from "react";
 import { Bar, Pie } from "react-chartjs-2";
-import { BsCollectionPlayFill, BsTrash } from "react-icons/bs";
+import { BsCollectionPlayFill, BsPencil, BsTrash } from "react-icons/bs";
 import { FaUsers } from "react-icons/fa";
 import { FcSalesPerformance } from "react-icons/fc";
 import { GiMoneyStack } from "react-icons/gi";
@@ -142,7 +142,7 @@ function AdminDashboard() {
                             onClick={() => {
                                 navigate("/course/create")
                             }}
-                            className="w-fit bg-yellow-500 hover:bg-yellow-600 transition-all ease-in-out duration-300 rounded py-2 px-4 font-semibold text-lg cursor-pointer"
+                            className="w-fit text-black bg-yellow-500 hover:bg-yellow-600 transition-all ease-in-out duration-300 rounded py-2 px-4 font-semibold text-lg cursor-pointer"
                         >
                             Create new course
                         </button>
@@ -150,40 +150,40 @@ function AdminDashboard() {
 
 
                     <div className="tables-parent-container">
-                        <div className="table-container-index">
+                        <div className="table-container-index pr-[20px]">
                             <table className="table-index">
                                 <thead>
                                     <tr>
-                                        <th>S No</th>
+                                        <th className="whitespace-nowrap">S No</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {myCourses?.map((course, idx) => (
                                         <tr key={`index-${course._id}`} id={`tr-${idx}`}>
-                                            <td>{idx + 1}</td>
+                                            <td className="whitespace-nowrap">{idx + 1}</td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
                         </div>
 
-                        <div className="table-container-content">
+                        <div className="table-container-content pl-[20px]">
                             <table className="table-content w-full">
                                 <thead>
                                     <tr>
-                                        <th>Course Title</th>
-                                        <th>Course Category</th>
-                                        <th>Instructor</th>
-                                        <th>Total Lectures</th>
-                                        <th>Description</th>
-                                        <th>Created At</th>
-                                        <th>Actions</th>
+                                        <th className="whitespace-normal">Course Title</th>
+                                        <th className="whitespace-nowrap">Course Category</th>
+                                        <th className="whitespace-nowrap">Instructor</th>
+                                        <th className="whitespace-nowrap">Total Lectures</th>
+                                        <th className="whitespace-normal">Description</th>
+                                        <th className="whitespace-nowrap">Created At</th>
+                                        <th className="whitespace-nowrap">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {myCourses?.map((course, idx) => (
                                         <tr key={`content-${course._id}`} id={`tr-${idx}`}>
-                                            <td>
+                                            <td className="whitespace-normal">
                                                 <div className="w-40 bg-transparent">
                                                     <p style={{
                                                         display: '-webkit-box',
@@ -193,16 +193,16 @@ function AdminDashboard() {
                                                     }}>{course?.title}</p>
                                                 </div>
                                             </td>
-                                            <td>
+                                            <td className="whitespace-nowrap">
                                                 {course?.category}
                                             </td>
-                                            <td>
+                                            <td className="whitespace-nowrap">
                                                 {course?.createdBy}
                                             </td>
-                                            <td>
+                                            <td className="whitespace-nowrap">
                                                 {course?.numberOfLectures}
                                             </td>
-                                            <td>
+                                            <td className="whitespace-normal">
                                                 <div className="w-40 bg-transparent">
                                                     <p style={{
                                                         display: '-webkit-box',
@@ -212,16 +212,22 @@ function AdminDashboard() {
                                                     }}>{course?.description}</p>
                                                 </div>
                                             </td>
-                                            <td>
+                                            <td className="whitespace-nowrap">
                                                 {new Date(course?.createdAt).toLocaleDateString()}
                                             </td>
-                                            <td>
+                                            <td className="whitespace-nowrap">
                                                 <div className="flex items-center gap-4">
                                                     <button
-                                                        className="bg-green-500 hover:bg-green-600 transition-all ease-in-out duration-300 text-xl py-2 px-4 rounded-md font-bold"
+                                                        className="bg-blue-500 hover:bg-blue-600 transition-all ease-in-out duration-300 text-xl py-2 px-4 rounded-md font-bold"
                                                         onClick={() => navigate("/course/displaylectures", { state: { ...course } })}
                                                     >
                                                         <BsCollectionPlayFill />
+                                                    </button>
+                                                    <button
+                                                        className="bg-green-500 hover:bg-green-600 transition-all ease-in-out duration-300 text-xl py-2 px-4 rounded-md font-bold"
+                                                        onClick={() => navigate("/course/edit", { state: { ...course } })}
+                                                    >
+                                                        <BsPencil />
                                                     </button>
                                                     <button
                                                         className="bg-red-500 hover:bg-red-600 transition-all ease-in-out duration-300 text-xl py-2 px-4 rounded-md font-bold"
