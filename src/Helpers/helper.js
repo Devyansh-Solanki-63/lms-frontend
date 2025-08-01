@@ -29,3 +29,19 @@ export const formatToINRCurrency = (number) => {
     maximumFractionDigits: 2
   }).format(number);
 }
+
+/**
+ * Gets the value of a cookie by its name
+ * @param {string} cookieName - The name of the cookie to retrieve
+ * @returns {string|null} - The cookie value if found, null otherwise
+ */
+export const getCookie = (cookieName) => {
+  const cookies = document.cookie.split('; ');
+  const cookie = cookies.find(cookie => cookie.startsWith(cookieName + '='));
+  
+  if (cookie) {
+    return cookie.split('=')[1];
+  }
+  
+  return null;
+}

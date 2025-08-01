@@ -3,10 +3,12 @@ import { toast } from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { BiRupee } from "react-icons/bi";
+import { FaRegClock } from "react-icons/fa";
 
 import HomeLayout from '../../Layouts/HomeLayout'
 import { getRazorpayId, purchaseCourseBundle, verifyUserPayment } from '../../Redux/Slices/RazorpaySlice'
 import { getUserData } from '../../Redux/Slices/AuthSlice';
+import SubscriptionCard from './SubscriptionCard';
 
 const Checkout = () => {
     const dispatch = useDispatch()
@@ -21,6 +23,7 @@ const Checkout = () => {
     }
 
     const [isLoading, setIsLoading] = useState(false)
+    const [selectedPlan, setSelectedPlan] = useState('yearly')
 
     const handleSubscription = async (e) => {
         e.preventDefault()
@@ -28,11 +31,23 @@ const Checkout = () => {
             toast.error("Something went wrong..!")
             return
         }
+        
+        // Get the price based on selected plan
+        let price = 499; // default yearly price
+        let duration = "1 Year";
+        
+        if (selectedPlan === 'monthly') {
+            price = 99;
+            duration = "1 Month";
+        } else if (selectedPlan === 'halfYearly') {
+            price = 299;
+            duration = "6 Months";
+        }
         const options = {
             key: razorpayKey,
             subscription_id: subscription_id,
             name: "CourseCracker Pvt. Ltd.",
-            description: "Subscription",
+            description: `${duration} Subscription`,
             theme: { color: '#F37254' },
             prefill: {
                 email: userData.email,
@@ -74,33 +89,53 @@ const Checkout = () => {
             {!isLoading ? (
                 <form
                     onSubmit={handleSubscription}
-                    className="flex-1 flex items-center justify-center text-white"
+                    className="flex-1 py-20 sm:py-12 mx-3 sm:mx-16 flex flex-col items-center gap-10 text-white"
                 >
-                    <div className="w-80 h-[26rem] flex flex-col justify-center shadow-[0_0_10px_black] rounded-lg relative">
-                        <h1 className="bg-yellow-500 absolute top-0 w-full text-center py-4 text-2xl font-bold rounded-tl0lg rounded-tr-lg">Subscription Bundle</h1>
-                        <div className="px-4 space-y-5 text-center">
-                            <p className="text-[17px]">
-                                This purchase will allow you to access all available course
-                                of our platform for {" "}
-                                <span className="text-yellow-500 font-bold">
-                                    <br />
-                                    1 Year duration
-                                </span> {" "}
-                                All the existing and new launched courses will be also available
-                            </p>
+                    <h1 className="text-3xl text-center font-bold mb-8">Choose Your Subscription Plan</h1>
+                    
+                    <div className="w-full flex flex-wrap gap-8 justify-center">
+                        {/* 1 Month Subscription Card */}
+                        <SubscriptionCard
+                            heading="Basic Plan"
+                            durationText="1 Month"
+                            price={200}
+                            themeColor="teal"
+                            planType="monthly"
+                            selectedPlan={selectedPlan}
+                            setSelectedPlan={setSelectedPlan}
+                        />
 
-                            <p className="flex items-center justify-center gap-1 text-2xl font-bold text-yellow-500">
-                                <BiRupee /><span>499</span> only
-                            </p>
-                            <div className="text-gray-200">
-                                <p>100% refund on cancellation</p>
-                                <p>* Terms and conditions applied *</p>
-                            </div>
-                            <button type="submit" className="bg-yellow-500 hover:bg-yellow-600 transition-all ease-in-out duration-300 absolute bottom-0 w-full left-0 text-xl font-bold rounded-bl-lg rounded-br-lg py-2">
-                                Buy now
-                            </button>
-                        </div>
+                        {/* 6 Month Subscription Card */}
+                        <SubscriptionCard
+                            heading="Standard Plan"
+                            durationText="6 Months"
+                            price={1000}
+                            themeColor="blue"
+                            planType="halfYearly"
+                            selectedPlan={selectedPlan}
+                            setSelectedPlan={setSelectedPlan}
+                        />
+
+                        {/* 1 Year Subscription Card */}
+                        <SubscriptionCard
+                            heading="Premium Plan"
+                            durationText="1 Year"
+                            price={2000}
+                            themeColor="red"
+                            planType="yearly"
+                            selectedPlan={selectedPlan}
+                            setSelectedPlan={setSelectedPlan}
+                        />
                     </div>
+                    
+                    <button type="submit" className="text-black bg-yellow-500 hover:bg-yellow-600 transition-all ease-in-out duration-300 text-xl font-bold rounded-lg py-3 px-10">
+                        Buy Now {`(${
+                            selectedPlan === 'monthly' ? 'Basic Plan' :
+                            selectedPlan === 'halfYearly' ? 'Standard Plan' :
+                            selectedPlan === 'yearly' ? 'Premium Plan' :
+                            ''
+                        })`}
+                    </button>
                 </form>
             ) : (
                 <div className='flex-1 flex items-center justify-center text-white'>loading...</div>
